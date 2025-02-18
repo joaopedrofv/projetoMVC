@@ -6,9 +6,24 @@
 </head>
 <body>
     <div th:replace="~{fragments/header :: header}"></div>
-    <h1>Livro: <span th:text="${livro.getTitulo()}"></span></h1>
-    <p>Autor(a): <span th:text="${livro.getAutor()}"></span></p>
-    <p>Categoria: <span th:text="${livro.getCategoria()}"></span></p>
+    <div th:object="${livro}">
+    <h1>Livro: <span th:text="*{titulo}"></span></h1>
+    <p>Autor(a): <span th:text="*{autor}"></span></p>
+    <p>Categoria: <span th:text="*{categoria.descricao}"></span></p>
+    </div>
+    <p>
+        Lista de livros utilizando variable expression:
+        <li th:each="livro : ${livros}" th:text="${livro.autor + ' - ' + livro.titulo}"></li>
+    </p>
+    <p>
+        Lista de livros utilizando selection expression:
+        <li th:each="livro : ${livros}" th:text="${autor + ' - ' + titulo}"></li>
+    </p>
+    <p><a th:href="@{/ola}">Olá</a></p>
+    <span th:text="${2>1 ? 'maior' : 'menor'}"></span>
+    <form th:action="@{/ola}">
+        <input type="button" th:value="#{form.submit}">
+    </form>
     <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>
